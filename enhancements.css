@@ -1,0 +1,37 @@
+/* Subtle motion and comparison block */
+.nav{gap:18px}
+.btn-attention,.btn-slide,.btn-call{position:relative;overflow:hidden;isolation:isolate}
+.btn-attention{gap:10px}
+.btn-attention::before{content:"";position:absolute;z-index:-1;top:-45%;left:-42%;width:28%;height:190%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);transform:skewX(-18deg);animation:softSweep 6.8s ease-in-out infinite}
+.calc-icon{display:grid;grid-template-columns:repeat(2,4px);grid-template-rows:repeat(2,4px);gap:2px;flex:0 0 auto;transform:translateX(0);animation:calcNudge 6.8s ease-in-out infinite}
+.calc-icon i{display:block;width:4px;height:4px;border-radius:1px;background:currentColor;opacity:.82}
+.btn-slide{gap:9px;padding-left:8px}
+.slide-knob{display:grid;place-items:center;width:32px;height:32px;flex:0 0 32px;border-radius:50%;background:rgba(20,15,9,.13);border:1px solid rgba(23,17,10,.16);font-size:16px;line-height:1;animation:slideHint 6.8s cubic-bezier(.25,.75,.25,1) infinite}
+.phone-ring::before{content:"☎";display:inline-block;margin-right:7px;color:var(--gold2);transform-origin:50% 68%;animation:phoneRing 7.2s ease-in-out infinite}
+.btn-call{gap:8px}
+.call-icon{display:inline-block;transform-origin:50% 68%;animation:phoneRing 7.2s ease-in-out infinite}
+.compare-section{background:var(--bg2)}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.compare-card{padding:28px;border:1px solid var(--soft);border-radius:12px;background:#0f0f0e}
+.compare-card.stretch{border-color:rgba(214,170,101,.46);background:#11100d}
+.compare-title{display:flex;gap:16px;align-items:flex-start;padding-bottom:22px;margin-bottom:20px;border-bottom:1px solid var(--soft)}
+.compare-mark{display:grid;place-items:center;width:40px;height:40px;flex:0 0 40px;border:1px solid rgba(255,255,255,.16);border-radius:50%;font:15px var(--serif);color:var(--muted)}
+.compare-card.stretch .compare-mark{border-color:var(--gold);color:var(--gold2)}
+.compare-title small{display:block;margin-bottom:5px;color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.compare-title h3{margin:0;font:26px/1.15 var(--serif);font-weight:400}
+.compare-card ul{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.compare-card li{position:relative;padding:13px 0 13px 25px;border-bottom:1px solid var(--soft);color:#d8d3cb}
+.compare-card li:last-child{border-bottom:0}
+.compare-card li::before{content:"";position:absolute;left:2px;top:20px;width:7px;height:7px;border-radius:50%;border:1px solid rgba(255,255,255,.32)}
+.compare-card.stretch li::before{background:var(--gold);border-color:var(--gold)}
+.compare-result{display:flex;align-items:center;gap:18px;margin-top:16px;padding:20px 24px;border:1px solid var(--line);border-radius:9px;background:rgba(214,170,101,.045)}
+.compare-result span{flex:0 0 auto;color:var(--gold2);font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+.compare-result strong{font:400 22px/1.25 var(--serif)}
+@keyframes softSweep{0%,72%,100%{left:-42%;opacity:0}76%{opacity:.25}84%{left:118%;opacity:.7}88%{opacity:0}}
+@keyframes calcNudge{0%,71%,100%{transform:translateX(0)}78%{transform:translateX(4px)}84%{transform:translateX(0)}}
+@keyframes slideHint{0%,72%,100%{transform:translateX(0)}78%{transform:translateX(8px)}84%{transform:translateX(0)}}
+@keyframes phoneRing{0%,76%,100%{transform:rotate(0)}78%{transform:rotate(-9deg)}80%{transform:rotate(9deg)}82%{transform:rotate(-7deg)}84%{transform:rotate(6deg)}86%{transform:rotate(0)}}
+@media(max-width:1180px){.nav{gap:15px;font-size:12px}}
+@media(max-width:860px){.compare-grid{grid-template-columns:1fr}.compare-result{align-items:flex-start}.phone-ring::before{display:none}}
+@media(max-width:600px){.compare-card{padding:20px}.compare-title h3{font-size:23px}.compare-result{display:block;padding:18px}.compare-result span{display:block;margin-bottom:7px}.compare-result strong{font-size:20px}.btn-slide{padding-left:7px}.slide-knob{width:30px;height:30px;flex-basis:30px}}
+@media(prefers-reduced-motion:reduce){.btn-attention::before,.calc-icon,.slide-knob,.phone-ring::before,.call-icon{animation:none!important}.btn:hover{transform:none}}
