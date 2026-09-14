@@ -2,7 +2,8 @@
 .nav{gap:18px}
 .btn-attention,.btn-slide,.btn-call{position:relative;overflow:hidden;isolation:isolate}
 .btn-attention{gap:10px}
-.btn-attention::before{content:"";position:absolute;z-index:-1;top:-45%;left:-42%;width:28%;height:190%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);transform:skewX(-18deg);animation:softSweep 6.8s ease-in-out infinite}
+.btn-attention>span{position:relative;z-index:1}
+.btn-attention::before{content:"";position:absolute;z-index:0;pointer-events:none;top:-45%;left:-42%;width:28%;height:190%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);transform:skewX(-18deg);animation:softSweep 6.8s ease-in-out infinite}
 .calc-icon{display:grid;grid-template-columns:repeat(2,4px);grid-template-rows:repeat(2,4px);gap:2px;flex:0 0 auto;transform:translateX(0);animation:calcNudge 6.8s ease-in-out infinite}
 .calc-icon i{display:block;width:4px;height:4px;border-radius:1px;background:currentColor;opacity:.82}
 .btn-slide{gap:9px;padding-left:8px}
