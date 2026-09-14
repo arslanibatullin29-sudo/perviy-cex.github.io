@@ -1,16 +1,22 @@
-/* Subtle motion and comparison block */
+/* Calm attention cues, comparison block and real-project gallery */
 .nav{gap:18px}
 .btn-attention,.btn-slide,.btn-call{position:relative;overflow:hidden;isolation:isolate}
 .btn-attention{gap:10px}
 .btn-attention>span{position:relative;z-index:1}
-.btn-attention::before{content:"";position:absolute;z-index:0;pointer-events:none;top:-45%;left:-42%;width:28%;height:190%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);transform:skewX(-18deg);animation:softSweep 6.8s ease-in-out infinite}
-.calc-icon{display:grid;grid-template-columns:repeat(2,4px);grid-template-rows:repeat(2,4px);gap:2px;flex:0 0 auto;transform:translateX(0);animation:calcNudge 6.8s ease-in-out infinite}
+.btn-attention::before{content:"";position:absolute;z-index:0;pointer-events:none;top:-45%;left:-42%;width:28%;height:190%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);transform:skewX(-18deg);opacity:0}
+.calc-icon{display:grid;grid-template-columns:repeat(2,4px);grid-template-rows:repeat(2,4px);gap:2px;flex:0 0 auto;transform:translateX(0)}
 .calc-icon i{display:block;width:4px;height:4px;border-radius:1px;background:currentColor;opacity:.82}
 .btn-slide{gap:9px;padding-left:8px}
-.slide-knob{display:grid;place-items:center;width:32px;height:32px;flex:0 0 32px;border-radius:50%;background:rgba(20,15,9,.13);border:1px solid rgba(23,17,10,.16);font-size:16px;line-height:1;animation:slideHint 6.8s cubic-bezier(.25,.75,.25,1) infinite}
-.phone-ring::before{content:"☎";display:inline-block;margin-right:7px;color:var(--gold2);transform-origin:50% 68%;animation:phoneRing 7.2s ease-in-out infinite}
+.slide-knob{display:grid;place-items:center;width:32px;height:32px;flex:0 0 32px;border-radius:50%;background:rgba(20,15,9,.13);border:1px solid rgba(23,17,10,.16);font-size:16px;line-height:1}
+.phone-ring::before{content:"☎";display:inline-block;margin-right:7px;color:var(--gold2);transform-origin:50% 68%}
 .btn-call{gap:8px}
-.call-icon{display:inline-block;transform-origin:50% 68%;animation:phoneRing 7.2s ease-in-out infinite}
+.call-icon{display:inline-block;transform-origin:50% 68%}
+.btn-attention.idle-active::before{animation:softSweepOnce 1.15s ease-out both}
+.btn-attention.idle-active .calc-icon{animation:calcNudgeOnce 1.15s ease-out both}
+.btn-slide.idle-active .slide-knob{animation:slideHintOnce 1.15s cubic-bezier(.25,.75,.25,1) both}
+.phone-ring.idle-active::before,.btn-call.idle-active .call-icon{animation:phoneRingOnce .8s ease-in-out both}
+.price-card.idle-active{animation:priceGlowOnce 1.35s ease-out both}
+
 .compare-section{background:var(--bg2)}
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .compare-card{padding:28px;border:1px solid var(--soft);border-radius:12px;background:#0f0f0e}
@@ -28,11 +34,44 @@
 .compare-result{display:flex;align-items:center;gap:18px;margin-top:16px;padding:20px 24px;border:1px solid var(--line);border-radius:9px;background:rgba(214,170,101,.045)}
 .compare-result span{flex:0 0 auto;color:var(--gold2);font-size:10px;letter-spacing:.18em;text-transform:uppercase}
 .compare-result strong{font:400 22px/1.25 var(--serif)}
-@keyframes softSweep{0%,72%,100%{left:-42%;opacity:0}76%{opacity:.25}84%{left:118%;opacity:.7}88%{opacity:0}}
-@keyframes calcNudge{0%,71%,100%{transform:translateX(0)}78%{transform:translateX(4px)}84%{transform:translateX(0)}}
-@keyframes slideHint{0%,72%,100%{transform:translateX(0)}78%{transform:translateX(8px)}84%{transform:translateX(0)}}
-@keyframes phoneRing{0%,76%,100%{transform:rotate(0)}78%{transform:rotate(-9deg)}80%{transform:rotate(9deg)}82%{transform:rotate(-7deg)}84%{transform:rotate(6deg)}86%{transform:rotate(0)}}
-@media(max-width:1180px){.nav{gap:15px;font-size:12px}}
-@media(max-width:860px){.compare-grid{grid-template-columns:1fr}.compare-result{align-items:flex-start}.phone-ring::before{display:none}}
-@media(max-width:600px){.compare-card{padding:20px}.compare-title h3{font-size:23px}.compare-result{display:block;padding:18px}.compare-result span{display:block;margin-bottom:7px}.compare-result strong{font-size:20px}.btn-slide{padding-left:7px}.slide-knob{width:30px;height:30px;flex-basis:30px}}
-@media(prefers-reduced-motion:reduce){.btn-attention::before,.calc-icon,.slide-knob,.phone-ring::before,.call-icon{animation:none!important}.btn:hover{transform:none}}
+
+.project-section{background:#0a0a09}
+.project-head{margin-bottom:28px}
+.project-story{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(280px,.72fr);gap:14px;min-height:610px}
+.project-strip{display:grid;grid-template-rows:repeat(3,1fr);gap:14px;min-width:0}
+.project-shot{position:relative;overflow:hidden;min-width:0;padding:0;border:1px solid var(--soft);border-radius:13px;background:#10100f;color:var(--text);text-align:left;cursor:zoom-in}
+.project-shot:focus-visible{outline:2px solid var(--gold2);outline-offset:3px}
+.project-shot img{width:100%;height:100%;object-fit:cover;transition:transform .55s cubic-bezier(.2,.7,.2,1),filter .35s ease}
+.project-shot:hover img{transform:scale(1.025);filter:brightness(1.04)}
+.project-shot-main{min-height:610px}
+.project-shot-main img{min-height:610px}
+.project-strip .project-shot{min-height:194px}
+.shot-gradient{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.02) 42%,rgba(0,0,0,.72) 100%);pointer-events:none}
+.project-shot-main .shot-gradient{background:linear-gradient(180deg,rgba(0,0,0,.03) 48%,rgba(0,0,0,.76) 100%)}
+.shot-caption{position:absolute;z-index:2;left:18px;right:18px;bottom:16px;display:grid;gap:3px;pointer-events:none}
+.shot-caption small{color:var(--gold2);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+.shot-caption strong{font:400 20px/1.15 var(--serif)}
+.project-shot-main .shot-caption{left:26px;right:26px;bottom:24px}
+.project-shot-main .shot-caption strong{font-size:34px}
+.shot-caption em{margin-top:4px;color:#d8d3cb;font-size:11px;font-style:normal;opacity:.82}
+.shot-number{position:absolute;z-index:2;top:12px;left:12px;display:grid;place-items:center;width:32px;height:32px;border:1px solid rgba(255,255,255,.24);border-radius:50%;background:rgba(5,5,5,.44);font:13px var(--serif);backdrop-filter:blur(6px)}
+.project-flow{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:18px;color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.project-flow i{display:block;width:74px;height:1px;background:linear-gradient(90deg,var(--line),var(--gold),var(--line))}
+.project-lightbox{position:fixed;z-index:300;inset:0;display:grid;place-items:center;padding:28px;background:rgba(4,4,4,.92);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .22s ease,visibility .22s ease}
+.project-lightbox.open{opacity:1;visibility:visible}
+.project-lightbox figure{margin:0;max-width:min(1120px,94vw);max-height:90vh;display:grid;gap:10px}
+.project-lightbox img{max-width:100%;max-height:82vh;border-radius:10px;border:1px solid var(--soft);object-fit:contain}
+.project-lightbox figcaption{color:#d8d3cb;font-size:13px;text-align:center}
+.lightbox-close{position:absolute;top:18px;right:20px;width:44px;height:44px;border:1px solid rgba(255,255,255,.18);border-radius:50%;background:rgba(10,10,10,.72);color:#fff;font-size:30px;line-height:1;cursor:pointer}
+body.lightbox-open{overflow:hidden}
+
+@keyframes softSweepOnce{0%{left:-42%;opacity:0}22%{opacity:.2}78%{left:118%;opacity:.72}100%{left:118%;opacity:0}}
+@keyframes calcNudgeOnce{0%,100%{transform:translateX(0)}45%{transform:translateX(5px)}}
+@keyframes slideHintOnce{0%,100%{transform:translateX(0)}48%{transform:translateX(9px)}}
+@keyframes phoneRingOnce{0%,100%{transform:rotate(0)}20%{transform:rotate(-9deg)}40%{transform:rotate(9deg)}60%{transform:rotate(-7deg)}80%{transform:rotate(6deg)}}
+@keyframes priceGlowOnce{0%,100%{border-color:rgba(214,170,101,.62);box-shadow:0 18px 45px rgba(0,0,0,.34)}45%{border-color:rgba(228,189,124,.95);box-shadow:0 18px 45px rgba(0,0,0,.34),0 0 0 1px rgba(228,189,124,.18),0 0 28px rgba(214,170,101,.14)}}
+
+@media(max-width:1180px){.nav{gap:15px;font-size:12px}.project-story{grid-template-columns:minmax(0,1.55fr) minmax(260px,.75fr)}}
+@media(max-width:860px){.compare-grid{grid-template-columns:1fr}.compare-result{align-items:flex-start}.phone-ring::before{display:none}.project-story{grid-template-columns:1fr;min-height:0}.project-shot-main,.project-shot-main img{min-height:0}.project-shot-main{aspect-ratio:4/3}.project-strip{grid-template-columns:repeat(3,minmax(170px,1fr));grid-template-rows:none;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px}.project-strip .project-shot{min-height:205px;scroll-snap-align:start}.project-flow{justify-content:flex-start;overflow:hidden}.project-lightbox{padding:18px}.project-lightbox img{max-height:76vh}}
+@media(max-width:600px){.compare-card{padding:20px}.compare-title h3{font-size:23px}.compare-result{display:block;padding:18px}.compare-result span{display:block;margin-bottom:7px}.compare-result strong{font-size:20px}.btn-slide{padding-left:7px}.slide-knob{width:30px;height:30px;flex-basis:30px}.project-head{margin-bottom:20px}.project-shot-main{aspect-ratio:1/1.02}.project-shot-main .shot-caption{left:18px;right:18px;bottom:17px}.project-shot-main .shot-caption strong{font-size:27px}.project-strip{grid-template-columns:repeat(3,minmax(155px,1fr));gap:10px}.project-strip .project-shot{min-height:185px}.shot-caption{left:13px;right:13px;bottom:12px}.shot-caption strong{font-size:17px}.project-flow{gap:9px;font-size:10px}.project-flow i{width:36px}.lightbox-close{top:12px;right:12px}}
+@media(prefers-reduced-motion:reduce){.btn-attention::before,.calc-icon,.slide-knob,.phone-ring::before,.call-icon,.price-card,.project-shot img,.project-lightbox{animation:none!important;transition:none!important}.btn:hover{transform:none}.project-shot:hover img{transform:none}}
