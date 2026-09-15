@@ -83,38 +83,5 @@
     revealTargets.forEach(el=>observer.observe(el));
   }
 
-  if(!reduced){
-    let idleTimer=null;
-    let cueIndex=0;
-    let currentCue=null;
-    const isVisible=el=>{
-      if(!el) return false;
-      const st=getComputedStyle(el);
-      if(st.display==='none'||st.visibility==='hidden'||Number(st.opacity)===0) return false;
-      const r=el.getBoundingClientRect();
-      return r.width>0&&r.height>0&&r.bottom>0&&r.top<innerHeight&&r.right>0&&r.left<innerWidth;
-    };
-    const clearCue=()=>{if(currentCue){currentCue.classList.remove('is-calling','idle-active');currentCue=null;}};
-    const runCue=()=>{
-      clearCue();
-      const ctas=[...document.querySelectorAll('.attention-cue')].filter(isVisible);
-      const price=[...document.querySelectorAll('.price-card')].filter(isVisible);
-      const candidates=[...ctas,...price];
-      if(candidates.length){
-        currentCue=candidates[cueIndex%candidates.length];
-        cueIndex++;
-        if(currentCue.classList.contains('price-card')) currentCue.classList.add('idle-active');
-        else currentCue.classList.add('is-calling');
-        const cue=currentCue;
-        setTimeout(()=>{cue.classList.remove('is-calling','idle-active');if(currentCue===cue)currentCue=null;},1500);
-      }
-      idleTimer=setTimeout(runCue,11000);
-    };
-    const resetIdle=()=>{clearTimeout(idleTimer);clearCue();idleTimer=setTimeout(runCue,7000);};
-    ['pointerdown','keydown','wheel','touchstart'].forEach(evt=>window.addEventListener(evt,resetIdle,{passive:true}));
-    document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimeout(idleTimer);clearCue();}else resetIdle();});
-    resetIdle();
-  }
-
   document.addEventListener('keydown',e=>{if(e.key==='Escape'){setMenu(false);closeLightbox();}});
 })();

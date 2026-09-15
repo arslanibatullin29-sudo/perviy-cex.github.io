@@ -112,3 +112,13 @@
 }
 @media(max-width:420px){.compare-picture-old .compare-photo,.compare-picture-new .compare-photo{height:350px}.compare-verdict strong{font-size:32px}.compare-verdict small{font-size:11px}.project-collage{height:530px}}
 @media(prefers-reduced-motion:reduce){.collage-shot,.bridge-action svg{transition:none}}
+
+/* Main conversion buttons pulse continuously, including while scrolling. */
+@keyframes primaryContinuousPulse{
+  0%,100%{filter:brightness(1);box-shadow:0 6px 18px rgba(0,0,0,.2),0 0 0 0 rgba(228,189,124,0),inset 0 1px 0 rgba(255,255,255,.24)}
+  50%{filter:brightness(1.14);box-shadow:0 8px 24px rgba(0,0,0,.25),0 0 25px 3px rgba(228,189,124,.38),inset 0 1px 0 rgba(255,255,255,.42)}
+}
+.btn.btn-primary.attention-cue{animation:primaryContinuousPulse 2.6s ease-in-out infinite!important}
+.btn.btn-primary.attention-cue::before,.btn.btn-primary.attention-cue::after{animation:none!important;opacity:0!important}
+.price-card::after{animation:none;opacity:0}
+@media(prefers-reduced-motion:reduce){.btn.btn-primary.attention-cue{animation:none!important}}
