@@ -31,6 +31,13 @@
     });
   }
 
+  document.querySelectorAll('.cmp-shot img').forEach(img=>{
+    img.addEventListener('error',()=>{
+      img.style.display='none';
+      img.closest('.cmp-shot')?.classList.add('is-image-missing');
+    },{once:true});
+  });
+
   const lightbox=document.getElementById('projectLightbox');
   const lightboxImage=document.getElementById('lightboxImage');
   const lightboxCaption=document.getElementById('lightboxCaption');
@@ -42,8 +49,8 @@
     document.body.classList.remove('lightbox-open');
   };
   const openLightbox=(src,caption)=>{
-    if(!lightbox||!lightboxImage) return;
-    lightboxImage.src=src||'';
+    if(!lightbox||!lightboxImage||!src) return;
+    lightboxImage.src=src;
     lightboxImage.alt=caption||'Фотография проекта';
     if(lightboxCaption) lightboxCaption.textContent=caption||'';
     lightbox.classList.add('open');
@@ -66,11 +73,23 @@
   let galleryTimer=null;
   let galleryPaused=false;
 
+  const restartGalleryProgress=()=>{
+    if(!gallery||reduced) return;
+    gallery.classList.remove('is-playing');
+    void gallery.offsetWidth;
+    gallery.classList.add('is-playing');
+  };
+  const scheduleGallery=()=>{
+    clearTimeout(galleryTimer);
+    if(reduced||galleryPaused||!thumbs.length) return;
+    galleryTimer=setTimeout(()=>{showSlide(galleryIndex+1);scheduleGallery();},5400);
+  };
   const showSlide=(index,{manual=false}={})=>{
     if(!stage||!mainImage||!thumbs.length) return;
     galleryIndex=(index+thumbs.length)%thumbs.length;
     const item=thumbs[galleryIndex];
     const src=item.dataset.src||'';
+    if(!src) return;
     stage.classList.add('is-changing');
     const preload=new Image();
     preload.onload=()=>{
@@ -89,19 +108,12 @@
       requestAnimationFrame(()=>stage.classList.remove('is-changing'));
       restartGalleryProgress();
     };
+    preload.onerror=()=>{
+      stage.classList.remove('is-changing');
+      if(!manual) scheduleGallery();
+    };
     preload.src=src;
     if(manual) scheduleGallery();
-  };
-  const restartGalleryProgress=()=>{
-    if(!gallery||reduced) return;
-    gallery.classList.remove('is-playing');
-    void gallery.offsetWidth;
-    gallery.classList.add('is-playing');
-  };
-  const scheduleGallery=()=>{
-    clearTimeout(galleryTimer);
-    if(reduced||galleryPaused||!thumbs.length) return;
-    galleryTimer=setTimeout(()=>{showSlide(galleryIndex+1);scheduleGallery();},5400);
   };
   thumbs.forEach((thumb,i)=>thumb.addEventListener('click',()=>showSlide(i,{manual:true})));
   stage?.addEventListener('click',()=>openLightbox(stage.dataset.projectSrc||mainImage?.src||'',stage.dataset.projectCaption||title?.textContent||''));
@@ -113,7 +125,7 @@
 
   if(!reduced&&'IntersectionObserver' in window){
     document.body.classList.add('motion-ready');
-    const revealTargets=[...document.querySelectorAll('.section-head,.technology,.compare-battle,.compare-punch,.project-gallery,.process-grid,.guarantee-grid,.reviews-grid,.cta-in')];
+    const revealTargets=[...document.querySelectorAll('.section-head,.technology,.visual-compare-head,.visual-side,.visual-compare-footer,.project-gallery,.process-grid,.guarantee-grid,.reviews-grid,.cta-in')];
     revealTargets.forEach(el=>el.classList.add('reveal-item'));
     const observer=new IntersectionObserver(entries=>{
       entries.forEach(entry=>{
@@ -129,8 +141,10 @@
     let currentCue=null;
     const isVisible=el=>{
       if(!el) return false;
-      const st=getComputedStyle(el); if(st.display==='none'||st.visibility==='hidden'||+st.opacity===0) return false;
-      const r=el.getBoundingClientRect(); return r.width>0&&r.height>0&&r.bottom>0&&r.top<innerHeight&&r.right>0&&r.left<innerWidth;
+      const st=getComputedStyle(el);
+      if(st.display==='none'||st.visibility==='hidden'||Number(st.opacity)===0) return false;
+      const r=el.getBoundingClientRect();
+      return r.width>0&&r.height>0&&r.bottom>0&&r.top<innerHeight&&r.right>0&&r.left<innerWidth;
     };
     const clearCue=()=>{if(currentCue){currentCue.classList.remove('is-calling','idle-active');currentCue=null;}};
     const runCue=()=>{
@@ -139,8 +153,10 @@
       const price=[...document.querySelectorAll('.price-card')].filter(isVisible);
       const candidates=[...ctas,...price];
       if(candidates.length){
-        currentCue=candidates[cueIndex%candidates.length]; cueIndex++;
-        if(currentCue.classList.contains('price-card')) currentCue.classList.add('idle-active'); else currentCue.classList.add('is-calling');
+        currentCue=candidates[cueIndex%candidates.length];
+        cueIndex++;
+        if(currentCue.classList.contains('price-card')) currentCue.classList.add('idle-active');
+        else currentCue.classList.add('is-calling');
         const cue=currentCue;
         setTimeout(()=>{cue.classList.remove('is-calling','idle-active');if(currentCue===cue)currentCue=null;},1500);
       }
