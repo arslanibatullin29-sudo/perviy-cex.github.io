@@ -47,6 +47,7 @@
     lightbox.classList.remove('open');
     lightbox.setAttribute('aria-hidden','true');
     document.body.classList.remove('lightbox-open');
+    lastPhoto?.focus();
   };
   const openLightbox=(src,caption)=>{
     if(!lightbox||!lightboxImage||!src) return;
@@ -61,69 +62,14 @@
   lightboxClose?.addEventListener('click',closeLightbox);
   lightbox?.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox();});
 
-  const gallery=document.getElementById('projectGallery');
-  const stage=document.getElementById('projectMain');
-  const mainImage=document.getElementById('projectMainImage');
-  const count=document.getElementById('projectCount');
-  const eyebrow=document.getElementById('projectEyebrow');
-  const title=document.getElementById('projectTitle');
-  const thumbs=[...document.querySelectorAll('.project-thumb')];
   const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-  let galleryIndex=Math.max(0,thumbs.findIndex(t=>t.classList.contains('is-active')));
-  let galleryTimer=null;
-  let galleryPaused=false;
-
-  const restartGalleryProgress=()=>{
-    if(!gallery||reduced) return;
-    gallery.classList.remove('is-playing');
-    void gallery.offsetWidth;
-    gallery.classList.add('is-playing');
-  };
-  const scheduleGallery=()=>{
-    clearTimeout(galleryTimer);
-    if(reduced||galleryPaused||!thumbs.length) return;
-    galleryTimer=setTimeout(()=>{showSlide(galleryIndex+1);scheduleGallery();},5400);
-  };
-  const showSlide=(index,{manual=false}={})=>{
-    if(!stage||!mainImage||!thumbs.length) return;
-    galleryIndex=(index+thumbs.length)%thumbs.length;
-    const item=thumbs[galleryIndex];
-    const src=item.dataset.src||'';
-    if(!src) return;
-    stage.classList.add('is-changing');
-    const preload=new Image();
-    preload.onload=()=>{
-      mainImage.src=src;
-      mainImage.alt=item.dataset.caption||item.dataset.title||'Фотография проекта';
-      stage.dataset.projectSrc=src;
-      stage.dataset.projectCaption=item.dataset.caption||item.dataset.title||'';
-      if(count) count.textContent=String(galleryIndex+1).padStart(2,'0')+' / '+String(thumbs.length).padStart(2,'0');
-      if(eyebrow) eyebrow.textContent=item.dataset.eyebrow||'';
-      if(title) title.textContent=item.dataset.title||'';
-      thumbs.forEach((t,i)=>{
-        const active=i===galleryIndex;
-        t.classList.toggle('is-active',active);
-        t.setAttribute('aria-selected',String(active));
-      });
-      requestAnimationFrame(()=>stage.classList.remove('is-changing'));
-      restartGalleryProgress();
-    };
-    preload.onerror=()=>{
-      stage.classList.remove('is-changing');
-      if(!manual) scheduleGallery();
-    };
-    preload.src=src;
-    if(manual) scheduleGallery();
-  };
-  thumbs.forEach((thumb,i)=>thumb.addEventListener('click',()=>showSlide(i,{manual:true})));
-  document.getElementById('projectPrev')?.addEventListener('click',()=>showSlide(galleryIndex-1,{manual:true}));
-  document.getElementById('projectNext')?.addEventListener('click',()=>showSlide(galleryIndex+1,{manual:true}));
-  stage?.addEventListener('click',()=>openLightbox(stage.dataset.projectSrc||mainImage?.src||'',stage.dataset.projectCaption||title?.textContent||''));
-  gallery?.addEventListener('mouseenter',()=>{galleryPaused=true;clearTimeout(galleryTimer)});
-  gallery?.addEventListener('mouseleave',()=>{galleryPaused=false;scheduleGallery()});
-  gallery?.addEventListener('focusin',()=>{galleryPaused=true;clearTimeout(galleryTimer)});
-  gallery?.addEventListener('focusout',()=>{galleryPaused=false;scheduleGallery()});
-  if(gallery){restartGalleryProgress();scheduleGallery();}
+  let lastPhoto=null;
+  document.querySelectorAll('.collage-shot').forEach(photo=>{
+    photo.addEventListener('click',()=>{
+      lastPhoto=photo;
+      openLightbox(photo.dataset.photoSrc,photo.dataset.photoCaption);
+    });
+  });
 
   if(!reduced&&'IntersectionObserver' in window){
     document.body.classList.add('motion-ready');
