@@ -1,0 +1,15 @@
+/* First-screen CTA attention + small stability fixes */
+.hero-actions .btn-primary.attention-cue{position:relative;z-index:3;animation:heroCtaWake 4.6s cubic-bezier(.2,.75,.2,1) .55s 1 both}
+.hero-actions .btn-primary.attention-cue::before{animation:heroCtaSweep 4.6s ease .55s 1 both}
+.hero-actions .btn-primary.attention-cue::after{content:"";position:absolute;inset:-7px;z-index:-1;border:1px solid rgba(228,189,124,.0);border-radius:10px;pointer-events:none;animation:heroCtaRing 4.6s ease .55s 1 both}
+@keyframes heroCtaWake{0%,12%,100%{transform:translateY(0) scale(1);box-shadow:0 7px 18px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.24)}18%{transform:translateY(-2px) scale(1.025);box-shadow:0 12px 34px rgba(0,0,0,.26),0 0 26px rgba(214,170,101,.24),inset 0 1px 0 rgba(255,255,255,.3)}28%{transform:translateY(0) scale(1.005)}46%{transform:translateY(-1px) scale(1.017);box-shadow:0 11px 30px rgba(0,0,0,.24),0 0 19px rgba(214,170,101,.18),inset 0 1px 0 rgba(255,255,255,.28)}56%{transform:translateY(0) scale(1)}}
+@keyframes heroCtaSweep{0%,10%,34%,100%{left:-45%;opacity:0}16%{opacity:.2}27%{left:120%;opacity:.78}40%{left:-45%;opacity:0}47%{opacity:.16}56%{left:120%;opacity:.68}62%{opacity:0}}
+@keyframes heroCtaRing{0%,10%,34%,100%{inset:-7px;border-color:rgba(228,189,124,0);opacity:0}16%{inset:-5px;border-color:rgba(228,189,124,.52);opacity:1}29%{inset:-13px;border-color:rgba(228,189,124,0);opacity:0}43%{inset:-5px;border-color:rgba(228,189,124,.38);opacity:.9}57%{inset:-11px;border-color:rgba(228,189,124,0);opacity:0}}
+/* Broken remote comparison photos should not collapse the layout */
+.cmp-shot{background:linear-gradient(145deg,#1b1714,#0e0d0c)}
+.cmp-shot img{min-width:100%;min-height:100%}
+/* Prevent long CTA labels and phone text from overflowing narrow screens */
+.btn{max-width:100%;text-align:center;white-space:normal}
+.phone,.cta-phone{overflow-wrap:anywhere}
+@media(max-width:600px){.hero-actions .btn-primary.attention-cue{animation-delay:.35s}.hero-actions .btn-primary.attention-cue::before,.hero-actions .btn-primary.attention-cue::after{animation-delay:.35s}}
+@media(prefers-reduced-motion:reduce){.hero-actions .btn-primary.attention-cue,.hero-actions .btn-primary.attention-cue::before,.hero-actions .btn-primary.attention-cue::after{animation:none!important}}
