@@ -2,6 +2,94 @@
   const year=document.getElementById('year');
   if(year) year.textContent=new Date().getFullYear();
 
+  /* Keep the hero intact; rebuild only the two sections below it. */
+  if(!document.querySelector('link[href="sections-v2.css"]')){
+    const link=document.createElement('link');
+    link.rel='stylesheet';
+    link.href='sections-v2.css';
+    document.head.appendChild(link);
+  }
+
+  const wallsSection=document.getElementById('walls');
+  const wallsWrap=wallsSection?.querySelector('.technology');
+  if(wallsSection&&wallsWrap){
+    wallsSection.classList.add('wall-explain');
+    wallsWrap.className='wrap wall-explain-inner';
+    wallsWrap.innerHTML=`
+      <div class="wall-explain-head">
+        <p class="eyebrow">Просто о технологии</p>
+        <h2>Что такое <span class="gold">натяжная стена?</span></h2>
+        <p><strong>Это отдельная ровная поверхность перед существующей стеной.</strong> По периметру крепится профиль, в него заправляется тканевое полотно — оно закрывает неровное основание и становится готовой декоративной поверхностью.</p>
+      </div>
+      <div class="wall-explain-flow" aria-label="Как устроена натяжная стена">
+        <article class="wall-explain-card">
+          <img src="assets/before.webp" loading="lazy" decoding="async" alt="Исходная стена до монтажа">
+          <div class="wall-explain-copy"><b>1</b><h3>Есть исходная стена</h3><p>Её не нужно выводить в идеальную плоскость под покраску или обои.</p></div>
+        </article>
+        <article class="wall-explain-card">
+          <img src="assets/process.webp" loading="lazy" decoding="async" alt="Монтаж профиля и тканевого полотна">
+          <div class="wall-explain-copy"><b>2</b><h3>Ставим профиль и полотно</h3><p>Профиль задаёт геометрию, а тканевое полотно натягивается и фиксируется по периметру.</p></div>
+        </article>
+        <article class="wall-explain-card">
+          <img src="assets/after.webp" loading="lazy" decoding="async" alt="Готовая натяжная стена в интерьере">
+          <div class="wall-explain-copy"><b>3</b><h3>Получается готовая стена</h3><p>Ровная декоративная поверхность без долгого выведения основания штукатуркой и шпаклёвкой.</p></div>
+        </article>
+      </div>
+      <div class="wall-explain-bottom">
+        <div class="wall-definition"><strong>Главная разница с обоями и покраской</strong><p>Обои и краска наносятся на подготовленное основание. Натяжное полотно формирует собственную ровную плоскость и закрывает стену за собой.</p></div>
+        <div class="wall-benefits">
+          <span><b>1–2 дня</b><small>обычно занимает монтаж</small></span>
+          <span><b>Без шлифовки</b><small>нет этапа пыльного выведения финишной поверхности</small></span>
+          <span><b>Сразу готово</b><small>после монтажа можно заносить мебель</small></span>
+        </div>
+      </div>`;
+  }
+
+  const compareSection=document.getElementById('compare');
+  const compareWrap=compareSection?.querySelector('.wrap');
+  if(compareSection&&compareWrap){
+    compareSection.classList.remove('compare-section','visual-compare');
+    compareSection.classList.add('compare-two');
+    compareWrap.innerHTML=`
+      <div class="compare-two-head">
+        <p class="eyebrow">Два способа получить ровную стену</p>
+        <h2>Одна цель. <span class="gold">Совсем разный путь.</span></h2>
+        <p>Слева — классическая подготовка основания. Справа — натяжная стена.</p>
+      </div>
+      <div class="compare-two-grid">
+        <article class="compare-two-card bad">
+          <img src="https://images.unsplash.com/photo-1764697757348-e3c87b076310?auto=format&fit=crop&fm=jpg&q=82&w=1600" loading="lazy" decoding="async" alt="Пыльная классическая отделка стены">
+          <div class="compare-two-content">
+            <span class="compare-two-label">Обычная отделка</span>
+            <h3>Сначала подготовить стену</h3>
+            <p>Чтобы получить ровный финиш, основание проходит несколько отдельных этапов.</p>
+            <div class="compare-two-route" aria-label="Этапы обычной отделки"><span>Штукатурка</span><i>→</i><span>Шпаклёвка</span><i>→</i><span>Сушка</span><i>→</i><span>Шлифовка</span><i>→</i><span>Финиш</span></div>
+            <div class="compare-two-badges"><span>Пыль</span><span>Мокрые процессы</span><span>Несколько этапов</span></div>
+          </div>
+        </article>
+        <div class="compare-two-vs" aria-hidden="true">VS</div>
+        <article class="compare-two-card good">
+          <img src="assets/after.webp" loading="lazy" decoding="async" alt="Готовая натяжная стена в интерьере">
+          <div class="compare-two-content">
+            <span class="compare-two-label">Натяжная стена</span>
+            <h3>Сразу создать новую плоскость</h3>
+            <p>Профиль и полотно закрывают исходную стену и формируют готовую ровную поверхность.</p>
+            <div class="compare-two-route" aria-label="Этапы натяжной стены"><span>Профиль</span><i>→</i><span>Полотно</span><i>→</i><span>Готовая поверхность</span></div>
+            <div class="compare-two-badges"><span>1–2 дня</span><span>Без штукатурки и шлифовки</span><span>Можно заносить мебель</span></div>
+          </div>
+        </article>
+      </div>
+      <div class="compare-two-footer"><strong>Меньше строительных этапов. <span>Быстрее готовый интерьер.</span></strong><a class="btn btn-primary attention-cue" href="#measure">Рассчитать стоимость</a></div>`;
+
+    const badPhoto=compareWrap.querySelector('.compare-two-card.bad img');
+    badPhoto?.addEventListener('error',()=>{
+      const card=badPhoto.closest('.compare-two-card');
+      card?.classList.add('image-missing');
+      badPhoto.src='assets/before.webp';
+      badPhoto.style.display='block';
+    },{once:true});
+  }
+
   const menuBtn=document.getElementById('menuBtn');
   const mobilePanel=document.getElementById('mobilePanel');
   const setMenu=open=>{
@@ -125,7 +213,7 @@
 
   if(!reduced&&'IntersectionObserver' in window){
     document.body.classList.add('motion-ready');
-    const revealTargets=[...document.querySelectorAll('.section-head,.technology,.visual-compare-head,.visual-side,.visual-compare-footer,.project-gallery,.process-grid,.guarantee-grid,.reviews-grid,.cta-in')];
+    const revealTargets=[...document.querySelectorAll('.wall-explain-head,.wall-explain-card,.wall-explain-bottom,.compare-two-head,.compare-two-card,.compare-two-footer,.section-head,.project-gallery,.process-grid,.guarantee-grid,.reviews-grid,.cta-in')];
     revealTargets.forEach(el=>el.classList.add('reveal-item'));
     const observer=new IntersectionObserver(entries=>{
       entries.forEach(entry=>{
