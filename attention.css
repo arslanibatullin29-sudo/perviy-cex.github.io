@@ -84,6 +84,70 @@
 .phone,.cta-phone{overflow-wrap:anywhere}
 .project-stage,.project-thumb,.visual-side,.form,.price-card{min-width:0}
 
+/* Second section: use the approved visual explainer as one clear poster. */
+.wall-explain-section{
+  padding:70px 0!important;
+  background:#090909!important;
+}
+.wall-explain-section::before{display:none!important}
+.wall-explain-section .wall-explain{
+  position:relative!important;
+  z-index:1;
+  display:block!important;
+  width:min(var(--max),calc(100% - 48px));
+  aspect-ratio:1672/941;
+  margin:auto;
+  overflow:hidden;
+  border-radius:26px;
+  border:1px solid rgba(214,170,101,.35);
+  background:#0b0a09 url('assets/wall-explain.webp') center/100% 100% no-repeat!important;
+  box-shadow:0 26px 64px rgba(0,0,0,.28);
+}
+.wall-explain-section .wall-explain-copy{
+  position:static!important;
+  display:block!important;
+}
+.wall-explain-section .wall-explain-copy>:not(.wall-question),
+.wall-explain-section .wall-diagram{display:none!important}
+.wall-explain-section .wall-question{
+  position:absolute!important;
+  z-index:5!important;
+  left:3.5%!important;
+  bottom:6.1%!important;
+  width:20.2%!important;
+  height:9.2%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:18px!important;
+  background:transparent!important;
+  color:transparent!important;
+  font-size:0!important;
+  box-shadow:none!important;
+  opacity:.01;
+  cursor:pointer;
+}
+.wall-explain-section .wall-question>*{display:none!important}
+.wall-explain-section .wall-question:hover{
+  opacity:1;
+  transform:none!important;
+  box-shadow:0 0 0 2px rgba(228,189,124,.35),0 0 30px rgba(214,170,101,.16)!important;
+}
+.wall-explain-section .wall-question:focus-visible{
+  opacity:1;
+  outline:2px solid var(--gold2)!important;
+  outline-offset:3px!important;
+}
+
+@media(max-width:760px){
+  .wall-explain-section{padding:42px 0!important}
+  .wall-explain-section .wall-explain{
+    width:calc(100% - 24px);
+    border-radius:16px;
+  }
+}
+
 @media(max-width:600px){
   .hero-actions .btn-primary.attention-cue,
   .hero-actions .btn-primary.attention-cue::before,
