@@ -116,6 +116,8 @@
     if(manual) scheduleGallery();
   };
   thumbs.forEach((thumb,i)=>thumb.addEventListener('click',()=>showSlide(i,{manual:true})));
+  document.getElementById('projectPrev')?.addEventListener('click',()=>showSlide(galleryIndex-1,{manual:true}));
+  document.getElementById('projectNext')?.addEventListener('click',()=>showSlide(galleryIndex+1,{manual:true}));
   stage?.addEventListener('click',()=>openLightbox(stage.dataset.projectSrc||mainImage?.src||'',stage.dataset.projectCaption||title?.textContent||''));
   gallery?.addEventListener('mouseenter',()=>{galleryPaused=true;clearTimeout(galleryTimer)});
   gallery?.addEventListener('mouseleave',()=>{galleryPaused=false;scheduleGallery()});
