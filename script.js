@@ -9,64 +9,6 @@
     document.head.appendChild(link);
   }
 
-  /* Explain the product in one glance. The profile drawing is intentionally schematic. */
-  const wallsSection=document.getElementById('walls');
-  if(wallsSection){
-    wallsSection.className='section wall-story-section';
-    wallsSection.innerHTML=`
-      <div class="wrap wall-story">
-        <div class="wall-story-copy">
-          <p class="eyebrow">Современный способ отделки</p>
-          <h2>Что такое <span class="gold">натяжная стена?</span></h2>
-          <p class="wall-story-lead">Это новая ровная поверхность<br>поверх старой стены.</p>
-          <p class="wall-story-text">По краям стены устанавливается профиль. В нём фиксируется и натягивается тканевое полотно — оно закрывает неровности, и вместо долгой подготовки вы получаете готовую аккуратную стену.</p>
-        </div>
-        <div class="wall-stack-card">
-          <span class="wall-stack-note">Схема принципа монтажа</span>
-          <div class="wall-stack" role="img" aria-label="Старая стена, профиль по периметру, тканевое полотно и готовая ровная поверхность">
-            <div class="stack-part stack-old"><span>Старая<br>стена</span><div class="stack-surface"></div></div>
-            <div class="stack-part stack-profile"><span>Профиль</span><div class="stack-surface"><i></i><b></b></div></div>
-            <div class="stack-part stack-fabric"><span>Полотно</span><div class="stack-surface"></div></div>
-            <div class="stack-part stack-finish"><span>Готовая<br>поверхность</span><div class="stack-surface"><i></i></div></div>
-          </div>
-        </div>
-      </div>`;
-  }
-
-  /* Two full images: emotional contrast first, explanation second. */
-  const compareSection=document.getElementById('compare');
-  if(compareSection){
-    compareSection.className='section compare-v3-section';
-    compareSection.innerHTML=`
-      <div class="wrap compare-v3">
-        <div class="compare-v3-head">
-          <p class="eyebrow">Сравнение</p>
-          <h2>Два способа <span class="gold">получить ровную стену</span></h2>
-        </div>
-        <div class="compare-v3-grid">
-          <article class="compare-v3-card compare-v3-old">
-            <img class="compare-v3-old-img" src="https://images.unsplash.com/photo-1764697757348-e3c87b076310?auto=format&fit=crop&fm=jpg&q=82&w=1600" loading="lazy" decoding="async" alt="Обычная отделка стены со строительной пылью и инструментом">
-            <span class="compare-v3-shade" aria-hidden="true"></span>
-            <div class="compare-v3-label"><i></i><span>Обычная отделка</span></div>
-            <div class="compare-v3-copy"><h3>Слишком долго,<br>грязно и затратно.</h3></div>
-          </article>
-          <article class="compare-v3-card compare-v3-new">
-            <img src="assets/after.webp" loading="lazy" decoding="async" alt="Готовая натяжная стена в интерьере">
-            <span class="compare-v3-shade" aria-hidden="true"></span>
-            <div class="compare-v3-label"><i></i><span>Натяжная стена</span></div>
-            <div class="compare-v3-copy"><h3>Быстро, современно<br>и практично.</h3></div>
-          </article>
-        </div>
-      </div>`;
-
-    const badPhoto=compareSection.querySelector('.compare-v3-old-img');
-    badPhoto?.addEventListener('error',()=>{
-      badPhoto.src='assets/before.webp';
-      badPhoto.alt='Исходная стена до работ';
-      badPhoto.closest('.compare-v3-card')?.classList.add('image-fallback');
-    },{once:true});
-  }
-
   const menuBtn=document.getElementById('menuBtn');
   const mobilePanel=document.getElementById('mobilePanel');
   const setMenu=open=>{
@@ -91,7 +33,7 @@
       const phone=String(f.get('phone')||'').trim();
       const area=String(f.get('area')||'').trim();
       if(!name||!phone){this.reportValidity();return;}
-      const msg='Здравствуйте! Хочу получить предварительный расчёт.\nИмя: '+name+'\nТелефон: '+phone+'\nПлощадь: '+(area||'не указана')+' м²';
+      const msg='Здравствуйте! Хочу получить предварительный расчёт.\nИмя: '+name+'\nТелефон: '+phone+'\nПлощадь стен: '+(area ? area+' м²' : 'не указана');
       window.open('https://wa.me/79964033063?text='+encodeURIComponent(msg),'_blank','noopener');
     });
   }
