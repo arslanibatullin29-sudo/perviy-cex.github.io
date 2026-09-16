@@ -122,3 +122,36 @@
 .btn.btn-primary.attention-cue::before,.btn.btn-primary.attention-cue::after{animation:none!important;opacity:0!important}
 .price-card::after{animation:none;opacity:0}
 @media(prefers-reduced-motion:reduce){.btn.btn-primary.attention-cue{animation:none!important}}
+
+
+/* The transition into the project gallery is a single, compact invitation. */
+.project-bridge{position:relative;isolation:isolate;display:grid;grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:20px;max-width:1180px;margin:22px auto 0;padding:18px 20px 18px 16px;border:1px solid rgba(228,189,124,.24);border-radius:18px;background:linear-gradient(100deg,rgba(228,189,124,.075),rgba(255,255,255,.02) 62%,rgba(228,189,124,.05));overflow:hidden;transition:transform .22s ease,border-color .22s ease,background .22s ease}
+.project-bridge::before{content:'';position:absolute;z-index:-1;inset:0;background:linear-gradient(100deg,transparent 15%,rgba(255,236,196,.16) 50%,transparent 85%);transform:translateX(-105%);transition:transform .7s ease}
+.project-bridge:hover{transform:translateY(-2px);border-color:rgba(228,189,124,.48);background:linear-gradient(100deg,rgba(228,189,124,.11),rgba(255,255,255,.035) 62%,rgba(228,189,124,.08))}
+.project-bridge:hover::before{transform:translateX(105%)}
+.bridge-index{display:grid;place-items:center;width:58px;height:58px;border:1px solid rgba(228,189,124,.5);border-radius:14px;background:rgba(10,9,8,.62);color:var(--gold2);font:400 27px/1 var(--serif)}
+.bridge-copy{min-width:0}.bridge-copy>small{display:block;margin:0 0 6px;color:var(--gold2);font-size:10px;letter-spacing:.18em}.bridge-copy>strong{display:block;font:400 clamp(26px,3vw,42px)/1.08 var(--serif);letter-spacing:-.02em}
+.bridge-action{display:inline-flex;align-items:center;justify-content:center;gap:13px;min-height:48px;padding:10px 13px 10px 18px;border:1px solid rgba(228,189,124,.65);border-radius:999px;background:linear-gradient(180deg,#e4bb78,#c99953);color:#17110a;font-size:13px;font-weight:700;white-space:nowrap;box-shadow:0 8px 22px rgba(0,0,0,.22);transition:transform .22s ease,filter .22s ease,box-shadow .22s ease}
+.bridge-action svg{flex:0 0 22px;width:22px;height:22px;padding:0;border:0;border-radius:0;transition:transform .24s ease;background:transparent}.project-bridge:hover .bridge-action{filter:brightness(1.05);box-shadow:0 11px 28px rgba(0,0,0,.28)}.project-bridge:hover .bridge-action svg{transform:translateY(3px);background:transparent}
+@media(max-width:760px){
+ .project-bridge{grid-template-columns:46px minmax(0,1fr);gap:14px;margin-top:18px;padding:16px;border-radius:15px}
+ .bridge-index{width:46px;height:46px;border-radius:12px;font-size:21px}.bridge-copy>small{font-size:9px}.bridge-copy>strong{font-size:27px}
+ .bridge-action{grid-column:2;justify-self:start;margin-top:0;min-height:44px;padding:9px 12px 9px 15px;font-size:12px}
+ .bridge-action svg{width:20px;height:20px;flex-basis:20px}
+}
+@media(max-width:480px){
+ .project-bridge{grid-template-columns:42px minmax(0,1fr);gap:12px;padding:14px}.bridge-index{width:42px;height:42px;font-size:19px}.bridge-copy>strong{font-size:24px}
+ .bridge-action{grid-column:1/-1;justify-self:stretch;width:100%;margin-top:3px;justify-content:space-between}
+}
+
+ /* Main CTA buttons get a stronger, still controlled pulse. */
+@keyframes primaryContinuousPulse{
+  0%,100%{transform:scale(1);filter:brightness(1) saturate(1);box-shadow:0 6px 18px rgba(0,0,0,.2),0 0 0 0 rgba(228,189,124,0),inset 0 1px 0 rgba(255,255,255,.24)}
+  36%{transform:scale(1.018);filter:brightness(1.06) saturate(1.02);box-shadow:0 8px 24px rgba(0,0,0,.24),0 0 18px 1px rgba(228,189,124,.22),inset 0 1px 0 rgba(255,255,255,.34)}
+  50%{transform:scale(1.038);filter:brightness(1.17) saturate(1.08);box-shadow:0 11px 30px rgba(0,0,0,.3),0 0 0 4px rgba(228,189,124,.13),0 0 34px 5px rgba(228,189,124,.4),inset 0 1px 0 rgba(255,255,255,.48)}
+  64%{transform:scale(1.012);filter:brightness(1.04) saturate(1.01);box-shadow:0 8px 23px rgba(0,0,0,.23),0 0 20px 1px rgba(228,189,124,.2),inset 0 1px 0 rgba(255,255,255,.3)}
+}
+@keyframes primaryContinuousSweep{0%,18%,100%{left:-48%;opacity:0}25%{opacity:.1}44%{left:120%;opacity:.8}56%{left:120%;opacity:0}}
+.btn.btn-primary.attention-cue{animation:primaryContinuousPulse 2.35s cubic-bezier(.25,.8,.25,1) infinite!important}
+.btn.btn-primary.attention-cue::before{animation:primaryContinuousSweep 2.35s ease-in-out infinite!important;opacity:1!important}
+@media(prefers-reduced-motion:reduce){.btn.btn-primary.attention-cue,.btn.btn-primary.attention-cue::before{animation:none!important;opacity:0!important}}
