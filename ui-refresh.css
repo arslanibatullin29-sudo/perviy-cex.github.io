@@ -155,3 +155,10 @@
 .btn.btn-primary.attention-cue{animation:primaryContinuousPulse 2.35s cubic-bezier(.25,.8,.25,1) infinite!important}
 .btn.btn-primary.attention-cue::before{animation:primaryContinuousSweep 2.35s ease-in-out infinite!important;opacity:1!important}
 @media(prefers-reduced-motion:reduce){.btn.btn-primary.attention-cue,.btn.btn-primary.attention-cue::before{animation:none!important;opacity:0!important}}
+
+
+/* Keep the cached pre-refresh markup readable while GitHub Pages rolls out index.html. */
+.project-bridge:not(:has(.bridge-index)){display:flex;grid-template-columns:none;padding:18px 20px 18px 16px}
+.project-bridge:not(:has(.bridge-index)) .bridge-copy{flex:1;min-width:0}.project-bridge:not(:has(.bridge-index)) .bridge-copy>small{margin:0;font-size:0;letter-spacing:0}.project-bridge:not(:has(.bridge-index)) .bridge-copy>small::before{content:'ЧЕТЫРЕ КАДРА';display:block;margin:0 0 6px;color:var(--gold2);font:600 10px/1 var(--sans);letter-spacing:.18em}.project-bridge:not(:has(.bridge-index)) .bridge-copy>small::after{content:'Посмотрите, как меняется стена';display:block;color:#f3f0e9;font:400 clamp(26px,3vw,42px)/1.08 var(--serif);letter-spacing:-.02em}
+@media(max-width:760px){.project-bridge:not(:has(.bridge-index)){display:grid;padding:16px}.project-bridge:not(:has(.bridge-index)) .bridge-action{grid-column:2;justify-self:start;margin-top:0}.project-bridge:not(:has(.bridge-index)) .bridge-copy>small::after{font-size:27px}}
+@media(max-width:480px){.project-bridge:not(:has(.bridge-index)){padding:14px}.project-bridge:not(:has(.bridge-index)) .bridge-action{grid-column:1/-1;justify-self:stretch;width:100%;margin-top:3px;justify-content:space-between}.project-bridge:not(:has(.bridge-index)) .bridge-copy>small::after{font-size:24px}}
