@@ -46,3 +46,6 @@ radial-gradient(circle at 24% 58%,rgba(206,108,83,.12) 0 1px,transparent 1.5px);
 @media(max-width:1180px){.visual-compare-head h2{font-size:50px}.visual-compare-grid{grid-template-columns:1fr}.visual-vs{margin:-2px auto}.cmp-shot{height:320px}}
 @media(max-width:760px){.visual-compare-head{text-align:left}.visual-compare-head h2{font-size:41px}.visual-compare-head>p:last-child{margin-left:0}.visual-side{padding:20px}.visual-side-title h3{font-size:29px}.cmp-strip{overflow-x:auto;scroll-snap-type:x mandatory}.cmp-strip-5{grid-template-columns:repeat(5,150px)}.cmp-strip-3{grid-template-columns:repeat(3,210px)}.cmp-shot{height:290px;scroll-snap-align:start}.cmp-badges{display:grid;grid-template-columns:1fr 1fr}.cmp-badges span{justify-content:flex-start}.visual-compare-footer{align-items:stretch;flex-direction:column}.visual-compare-footer strong{font-size:24px}.visual-compare-footer .btn{width:100%}}
 @media(max-width:430px){.visual-compare-head h2{font-size:36px}.cmp-badges{grid-template-columns:1fr}.cmp-shot{height:270px}.cmp-strip-5{grid-template-columns:repeat(5,138px)}.cmp-strip-3{grid-template-columns:repeat(3,190px)}}
+
+/* The transition card between comparison and gallery is intentionally removed. */
+.project-bridge{display:none!important}
