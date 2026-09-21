@@ -188,3 +188,27 @@ section[id]{scroll-margin-top:calc(var(--header) + 16px)}
  .hero-copy-nail h1{font-size:clamp(34px,9.5vw,43px)!important}
  .hero-nail-lead{font-size:21px}
 }
+
+
+/* 2026-09-21 v5: properties inside price card */
+.hero-revamp-layout{grid-template-columns:minmax(0,1fr) minmax(360px,420px)}
+.hero-price-card{align-self:center!important;padding:26px!important}
+.price-benefits{display:grid;gap:0;margin:18px 0 22px;border-top:1px solid rgba(228,189,124,.18);border-bottom:1px solid rgba(228,189,124,.18)}
+.price-benefits>div{display:grid;grid-template-columns:84px minmax(0,1fr);gap:12px;align-items:start;padding:12px 0;border-top:1px solid rgba(255,255,255,.06)}
+.price-benefits>div:first-child{border-top:0}
+.price-benefits span{color:#978e82;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase}
+.price-benefits strong{color:#f1eadf;font-size:13px;font-weight:600;line-height:1.38}
+.price-benefits>div:nth-child(1) strong,.price-benefits>div:nth-child(2) strong{color:#f0d7aa}
+.hero-copy-nail .hero-nail-lead{margin-bottom:26px}
+@media(max-width:1100px){
+ .hero-revamp-layout{grid-template-columns:minmax(0,1fr) 360px;gap:34px}
+}
+@media(max-width:840px){
+ .hero-revamp-layout{grid-template-columns:1fr}
+ .hero-revamp .hero-price-card{max-width:520px!important;width:100%;justify-self:start}
+}
+@media(max-width:480px){
+ .hero-price-card{padding:22px!important}
+ .price-benefits>div{grid-template-columns:72px minmax(0,1fr);gap:10px;padding:11px 0}
+ .price-benefits strong{font-size:12px}
+}
