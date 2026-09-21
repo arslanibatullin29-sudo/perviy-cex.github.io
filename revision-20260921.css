@@ -99,3 +99,28 @@ section[id]{scroll-margin-top:calc(var(--header) + 16px)}
  .btn.btn-primary.attention-cue{animation:none!important;opacity:1!important;filter:none!important;transform:none!important}
  .btn.btn-primary.attention-cue:before{animation:none!important;opacity:0!important}
 }
+
+
+/* 2026-09-21 v2: speed/convenience emphasis + household comparison + daily life */
+.hero-process-benefit{max-width:690px;margin:-10px 0 23px;padding-left:16px;border-left:2px solid rgba(228,189,124,.6);color:#d8d0c4;font-size:14px;line-height:1.55}
+.finish-visuals-story figcaption span{max-width:560px;display:block}
+.comfort-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 28px}
+.comfort-strip>div{padding:18px 18px 17px;border:1px solid rgba(228,189,124,.15);border-radius:14px;background:linear-gradient(145deg,rgba(228,189,124,.055),rgba(255,255,255,.015))}
+.comfort-strip b{display:block;margin-bottom:7px;color:#f0dfc4;font-size:14px}
+.comfort-strip span{display:block;color:#aaa195;font-size:12px;line-height:1.5}
+.finish-row-life>div{background:rgba(255,255,255,.012)}
+.daily-life{position:relative;overflow:hidden;background:linear-gradient(180deg,#0b0a09,#10100e)}
+.daily-life:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 20% 40%,rgba(228,189,124,.07),transparent 32%)}
+.daily-life-grid{position:relative;display:grid;grid-template-columns:minmax(360px,.82fr) minmax(0,1.18fr);gap:58px;align-items:center}
+.daily-life-media{position:relative;overflow:hidden;min-height:590px;border-radius:18px;border:1px solid rgba(228,189,124,.22);background:#15130f}
+.daily-life-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.daily-life-media:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.62))}
+.daily-life-media span{position:absolute;z-index:2;left:20px;bottom:18px;color:#eee7dc;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.daily-life-copy h2{margin:0 0 28px;font:400 clamp(36px,4vw,54px)/1.03 var(--serif);letter-spacing:-.03em}
+.life-qa{display:grid;gap:0;border-top:1px solid rgba(228,189,124,.16)}
+.life-qa article{padding:20px 0;border-bottom:1px solid rgba(228,189,124,.13)}
+.life-qa h3{margin:0 0 8px;color:#efe8de;font:500 19px/1.25 var(--sans)}
+.life-qa p{margin:0;color:#b9b0a4;font-size:14px;line-height:1.65}
+.life-note{margin:20px 0 0;padding:14px 16px;border-radius:12px;background:rgba(228,189,124,.05);color:#9f968b;font-size:12px;line-height:1.55}
+@media(max-width:980px){.daily-life-grid{grid-template-columns:1fr;gap:30px}.daily-life-media{min-height:420px}.comfort-strip{grid-template-columns:1fr 1fr}.comfort-strip>div:last-child{grid-column:1/-1}}
+@media(max-width:600px){.hero-process-benefit{margin-top:-6px;font-size:13px}.comfort-strip{grid-template-columns:1fr}.comfort-strip>div:last-child{grid-column:auto}.daily-life-media{min-height:340px}.life-qa h3{font-size:18px}.life-qa p{font-size:13px}}
