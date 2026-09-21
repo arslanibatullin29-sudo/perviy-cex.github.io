@@ -212,3 +212,15 @@ section[id]{scroll-margin-top:calc(var(--header) + 16px)}
  .price-benefits>div{grid-template-columns:72px minmax(0,1fr);gap:10px;padding:11px 0}
  .price-benefits strong{font-size:12px}
 }
+
+
+/* 2026-09-21 v6: direct Nail claims in price card */
+.price-benefits{display:none!important}
+.price-benefits-direct{display:grid;gap:0;margin:18px 0 22px;padding:3px 0;border-top:1px solid rgba(228,189,124,.2);border-bottom:1px solid rgba(228,189,124,.2)}
+.price-benefits-direct p{margin:0;padding:12px 0;border-top:1px solid rgba(255,255,255,.065);color:#f3ede4;font-size:14px;font-weight:600;line-height:1.45}
+.price-benefits-direct p:first-child{border-top:0}
+.price-benefits-direct b{color:var(--gold2);font-weight:800}
+.price-benefits-direct span{color:#d9cdbb}
+@media(max-width:480px){
+ .price-benefits-direct p{padding:11px 0;font-size:13px;line-height:1.42}
+}
