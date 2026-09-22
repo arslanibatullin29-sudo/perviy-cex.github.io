@@ -248,3 +248,100 @@ section[id]{scroll-margin-top:calc(var(--header,72px) + 14px)}
   .receipt-cta{animation:none!important;opacity:1!important;transform:none!important}
   .hero-down-link svg,.wall-scroll-link svg,.repair-note a svg{transition:none!important}
 }
+
+
+/* 2026-09-23 layout audit fixes */
+.hero-receipt-grid{
+  width:min(1240px,calc(100% - 64px))!important;
+  max-width:1240px!important;
+  margin-inline:auto!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+.hero-receipt-copy .display{
+  font-size:clamp(46px,5vw,72px)!important;
+  max-width:720px!important;
+}
+.mobile-cta{display:none!important}
+
+/* Stable visual cutaway: labels stay on the picture at every width */
+.system-visual-cutaway>img{
+  object-position:68% center!important;
+  filter:brightness(.62) saturate(.8)!important;
+}
+.system-visual-cutaway:before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(6,6,5,.86) 0%,rgba(6,6,5,.66) 36%,rgba(6,6,5,.18) 63%,rgba(6,6,5,.05) 100%);
+}
+.cutaway-model{
+  position:absolute;z-index:2;left:5%;top:9%;bottom:8%;width:40%;
+  filter:drop-shadow(16px 10px 24px rgba(0,0,0,.42));
+}
+.cutaway-model span{position:absolute;display:block}
+.cutaway-base{
+  left:0;top:0;bottom:0;width:46%;
+  background:
+    linear-gradient(90deg,#171615 0%,#514b43 52%,#24211e 100%);
+  clip-path:polygon(0 0,86% 0,100% 7%,88% 15%,100% 24%,87% 34%,100% 45%,88% 57%,100% 69%,88% 82%,100% 100%,0 100%);
+}
+.cutaway-membrane{
+  left:45%;top:7%;bottom:6%;width:9%;
+  background:linear-gradient(180deg,#282724,#5b5751 50%,#2f2d2a);
+  box-shadow:1px 0 0 rgba(255,255,255,.09),6px 0 18px rgba(0,0,0,.35);
+}
+.cutaway-fabric{
+  left:58%;top:9%;bottom:7%;width:13%;
+  background:linear-gradient(180deg,#ddd4c6 0%,#a99f90 46%,#e4dbce 100%);
+  border-radius:0 46% 60% 0 / 0 32% 68% 0;
+  transform:skewY(-2deg);
+  box-shadow:10px 0 28px rgba(0,0,0,.32),0 0 15px rgba(229,191,130,.12);
+}
+.cutaway-profile{
+  left:37%;top:2%;width:34%;height:10%;
+  min-height:48px;
+  background:linear-gradient(135deg,#b6b2a9 0%,#3c3935 34%,#aba79f 68%,#292824 100%);
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 9px 22px rgba(0,0,0,.42);
+}
+.system-visual-cutaway .layer-label{left:42%!important;z-index:4!important}
+.system-visual-cutaway .layer-profile{top:18%!important}
+.system-visual-cutaway .layer-membrane{top:48%!important}
+.system-visual-cutaway .layer-fabric{top:72%!important}
+.system-visual-cutaway .layer-label i{width:clamp(52px,6vw,92px)!important}
+
+.repair-new>img{
+  object-position:70% center!important;
+  filter:brightness(.76) saturate(.9)!important;
+}
+
+/* Gallery must never collapse into black cards if old WebP files fail to decode. */
+.project-collage .collage-shot{background:#171411!important}
+.project-collage .collage-shot img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;opacity:1!important}
+
+/* Desktop spacing: content no longer touches the viewport edge. */
+@media(min-width:841px){
+  .wall-system-grid,.repair-compare-v2>.wrap{width:min(1240px,calc(100% - 64px))!important;margin-inline:auto!important}
+}
+
+/* Mobile: one CTA only, safe side padding, labels remain inside the image. */
+@media(max-width:840px){
+  .hero-receipt-grid{width:calc(100% - 28px)!important;max-width:none!important;margin-inline:auto!important}
+  .hero-receipt-copy .display{font-size:clamp(38px,10.1vw,55px)!important;line-height:1.02!important}
+  .receipt-card{margin-inline:auto!important}
+  .wall-system-v2,.repair-compare-v2{padding-top:64px!important;padding-bottom:64px!important}
+  .system-visual-cutaway{max-width:none!important}
+  .cutaway-model{left:3%;top:8%;bottom:7%;width:52%}
+  .system-visual-cutaway .layer-label{left:8%!important}
+  .system-visual-cutaway .layer-label i{width:46px!important}
+  .system-visual-cutaway .layer-profile{top:17%!important}
+  .system-visual-cutaway .layer-membrane{top:48%!important}
+  .system-visual-cutaway .layer-fabric{top:72%!important}
+  .repair-new>img{object-position:64% center!important}
+}
+@media(max-width:390px){
+  .hero-receipt-grid{width:calc(100% - 20px)!important}
+  .receipt-card{padding:24px 19px 27px!important}
+  .receipt-benefits>div{padding:10px 0!important}
+  .system-visual-cutaway .layer-label{font-size:10px!important}
+  .system-visual-cutaway .layer-label i{width:38px!important}
+}
