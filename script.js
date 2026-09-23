@@ -2,13 +2,6 @@
   const year=document.getElementById('year');
   if(year) year.textContent=new Date().getFullYear();
 
-  if(!document.querySelector('link[href="sections-v2.css"]')){
-    const link=document.createElement('link');
-    link.rel='stylesheet';
-    link.href='sections-v2.css';
-    document.head.appendChild(link);
-  }
-
   const menuBtn=document.getElementById('menuBtn');
   const mobilePanel=document.getElementById('mobilePanel');
   const setMenu=open=>{
@@ -16,6 +9,9 @@
     menuBtn.setAttribute('aria-expanded',String(open));
     mobilePanel.classList.toggle('open',open);
     mobilePanel.setAttribute('aria-hidden',String(!open));
+    mobilePanel.inert=!open;
+    document.querySelector('main').inert=open;
+    document.querySelector('footer').inert=open;
     document.body.classList.toggle('menu-open',open);
   };
   if(menuBtn&&mobilePanel){
@@ -26,15 +22,27 @@
 
   const form=document.getElementById('leadForm');
   if(form){
+    const phoneInput=form.elements.phone;
+    const areaInput=form.elements.area;
+    const validate=()=>{
+      const digits=phoneInput.value.replace(/\D/g,'');
+      phoneInput.setCustomValidity(digits.length>=10 && digits.length<=15 ? '' : 'Введите телефон: от 10 до 15 цифр с кодом страны.');
+      const raw=areaInput.value.trim();
+      const area=Number(raw.replace(',','.'));
+      areaInput.setCustomValidity(!raw || (/^\d+(?:[.,]\d+)?$/.test(raw) && area>0 && area<=100000) ? '' : 'Введите положительную площадь в м².');
+    };
+    form.addEventListener('input',validate);
+    form.querySelector('button[type=submit]').addEventListener('click',validate);
     form.addEventListener('submit',function(e){
       e.preventDefault();
       const f=new FormData(this);
       const name=String(f.get('name')||'').trim();
       const phone=String(f.get('phone')||'').trim();
       const area=String(f.get('area')||'').trim();
-      if(!name||!phone){this.reportValidity();return;}
+      validate();
+      if(!name || !this.checkValidity()){this.reportValidity();return;}
       const msg='Здравствуйте! Хочу получить предварительный расчёт.\nИмя: '+name+'\nТелефон: '+phone+'\nПлощадь стен: '+(area ? area+' м²' : 'не указана');
-      window.open('https://wa.me/79964033063?text='+encodeURIComponent(msg),'_blank','noopener');
+      window.location.assign('https://wa.me/79964033063?text='+encodeURIComponent(msg));
     });
   }
 
@@ -43,11 +51,14 @@
   const lightboxCaption=document.getElementById('lightboxCaption');
   const lightboxClose=document.getElementById('lightboxClose');
   const closeLightbox=()=>{
-    if(!lightbox) return;
+    if(!lightbox || !lightbox.classList.contains('open')) return;
     lightbox.classList.remove('open');
     lightbox.setAttribute('aria-hidden','true');
+    lightbox.inert=true;
+    document.querySelectorAll('header,main,footer').forEach(el=>el.inert=false);
     document.body.classList.remove('lightbox-open');
     lastPhoto?.focus();
+    lightboxImage?.removeAttribute('src');
   };
   const openLightbox=(src,caption)=>{
     if(!lightbox||!lightboxImage||!src) return;
@@ -56,6 +67,8 @@
     if(lightboxCaption) lightboxCaption.textContent=caption||'';
     lightbox.classList.add('open');
     lightbox.setAttribute('aria-hidden','false');
+    lightbox.inert=false;
+    document.querySelectorAll('header,main,footer').forEach(el=>el.inert=true);
     document.body.classList.add('lightbox-open');
     lightboxClose?.focus();
   };
@@ -83,5 +96,17 @@
     revealTargets.forEach(el=>observer.observe(el));
   }
 
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'){setMenu(false);closeLightbox();}});
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){
+      if(lightbox?.classList.contains('open')) closeLightbox();
+      else if(menuBtn?.getAttribute('aria-expanded')==='true'){setMenu(false);menuBtn.focus();}
+    }
+    if(e.key==='Tab' && lightbox?.classList.contains('open')){e.preventDefault();lightboxClose.focus();}
+    if(e.key==='Tab' && menuBtn?.getAttribute('aria-expanded')==='true'){
+      const items=[menuBtn,...mobilePanel.querySelectorAll('a')];
+      const first=items[0],last=items[items.length-1];
+      if(e.shiftKey && document.activeElement===first){e.preventDefault();last.focus();}
+      else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first.focus();}
+    }
+  });
 })();
