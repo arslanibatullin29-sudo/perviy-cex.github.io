@@ -22,11 +22,14 @@
 
   const form=document.getElementById('leadForm');
   if(form){
+    const nameInput=form.elements.name;
     const phoneInput=form.elements.phone;
     const areaInput=form.elements.area;
     const validate=()=>{
-      const digits=phoneInput.value.replace(/\D/g,'');
-      phoneInput.setCustomValidity(digits.length>=10 && digits.length<=15 ? '' : 'Введите телефон: от 10 до 15 цифр с кодом страны.');
+      nameInput.setCustomValidity(nameInput.value.trim() ? '' : 'Введите имя.');
+      const rawPhone=phoneInput.value.trim();
+      const digits=rawPhone.replace(/\D/g,'');
+      phoneInput.setCustomValidity(/^\+?[\d\s()−-]+$/.test(rawPhone) && digits.length>=10 && digits.length<=15 ? '' : 'Введите телефон: от 10 до 15 цифр с кодом страны.');
       const raw=areaInput.value.trim();
       const area=Number(raw.replace(',','.'));
       areaInput.setCustomValidity(!raw || (/^\d+(?:[.,]\d+)?$/.test(raw) && area>0 && area<=100000) ? '' : 'Введите положительную площадь в м².');
@@ -103,7 +106,7 @@
     }
     if(e.key==='Tab' && lightbox?.classList.contains('open')){e.preventDefault();lightboxClose.focus();}
     if(e.key==='Tab' && menuBtn?.getAttribute('aria-expanded')==='true'){
-      const items=[menuBtn,...mobilePanel.querySelectorAll('a')];
+      const items=[...document.querySelectorAll('header a,header button'),...mobilePanel.querySelectorAll('a')].filter(el=>el.getClientRects().length);
       const first=items[0],last=items[items.length-1];
       if(e.shiftKey && document.activeElement===first){e.preventDefault();last.focus();}
       else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first.focus();}

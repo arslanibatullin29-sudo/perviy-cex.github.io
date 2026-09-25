@@ -69,3 +69,19 @@ body{background:#10100e;color:#f4f1eb}h1,h2,h3{font-family:var(--sans)!important
 .receipt-cta:before{display:block!important;content:"";position:absolute;inset:-3px 0;border:1.6px solid #29241d;border-radius:49% 51% 48% 52% / 47% 48% 52% 53%;transform:rotate(-3deg);pointer-events:none}
 .receipt-cta:after{content:"";position:absolute;inset:0 -2px;border:1px solid #29241d88;border-radius:51% 49% 53% 47% / 48% 54% 46% 52%;transform:rotate(2deg);pointer-events:none}
 @media(max-width:480px){.receipt-card{padding:32px 24px 36px!important}.receipt-price strong{font-size:53px!important}.receipt-price span{font-size:22px!important}.receipt-benefits b{font-size:16px!important}.receipt-benefits>div{gap:13px!important}.receipt-cta{font-size:19px!important}}
+
+/* Follow-up QA: centered photos, one anchor offset, compact narrow receipt. */
+.project-lightbox.open{justify-content:center;align-items:center}
+html{scroll-padding-top:calc(var(--header) + 16px)}
+.section[id]{scroll-margin-top:0!important}
+.receipt-cta:focus-visible{outline:2px solid #29241d;outline-offset:5px}
+@media(max-width:360px){
+  .receipt-card{padding-inline:18px!important}
+  .receipt-price{gap:5px!important}
+  .receipt-price strong{font-size:46px!important}
+  .receipt-price small,.receipt-price span{font-size:19px!important}
+  .receipt-cta{font-size:17px!important}
+  .hero-receipt-copy .display{font-size:32px!important}
+}
+.review-point{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;justify-content:space-between}
+.review-point a{display:inline-block;min-height:44px;padding-block:10px;text-decoration:underline;text-underline-offset:4px}
